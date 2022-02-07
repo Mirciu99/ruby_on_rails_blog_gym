@@ -1,0 +1,35 @@
+<body>
+
+<div class="container-title-body-article">
+  <h1>
+    <%= @article.title %>
+  </h1>
+
+  <p>
+    <%= @article.body %>
+  </p>
+  <div class="container-title-body-article-links">
+    <%= link_to "Edit", edit_article_path(@article) %>
+    <%= link_to "Destroy", article_path(@article), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+    } %>
+  </div>
+</div>
+  
+  <div class="container-title-body-comment">
+  <div>
+    <h1>Comments</h1>
+    <%= render @article.comments %>
+  </div>
+  
+  <div class="container-title-body-comment-add">
+    <h1>Add a comment:</h1>
+    <%= render 'comments/form' %>
+  </div>
+</div>
+<div class="new-art-link">
+  <%= link_to "Back", root_path %>
+</div>
+
+</body>
