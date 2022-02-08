@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  #http_basic_authenticate_with name: "Admin", password: "admin", only: :destroy
   after_action :send_new_comment_alert, only: :create
 
   def create
