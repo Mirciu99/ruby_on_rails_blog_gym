@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :check_admin_or_owner, only: [:edit, :update, :destroy] 
+
   def index
     @articles = Article.all
   end
@@ -17,6 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    @article.user_id = current_user.id
 
     if @article.save
       redirect_to @article
@@ -48,6 +51,13 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status)
+      params.require(:article).permit(:title, :body, :status, :user_id)
+    end
+
+    def check_admin_or_owner
+      article = Article.find(params[:id])
+      unless current_user.is_admin or article.user_id == current_user.id
+        redirect_to root_path, alert: "You don t have the permission on this article !"
+      end
     end
 end

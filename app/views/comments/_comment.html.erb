@@ -1,5 +1,6 @@
 <p>
   <strong>Commenter:</strong>
+  <%= gravatar_for comment.commenter %>
   <%= comment.commenter %>
 </p>
 
@@ -9,8 +10,10 @@
 </p>
 
 <p>
-  <%= link_to "Destroy Comment", [comment.article, comment], data: {
-  turbo_method: :delete,
-  turbo_confirm: "Are you sure?"
-  } %>
+  <% if current_user.is_admin or @article.user_id == current_user.id %>
+    <%= link_to "Destroy Comment", [comment.article, comment], data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+    } %>
+  <% end %>
 </p>

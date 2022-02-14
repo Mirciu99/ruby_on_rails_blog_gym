@@ -73,3 +73,6 @@ end
 
 #device gem
 gem "devise"
+
+#cors gem
+gem "rack-cors"
